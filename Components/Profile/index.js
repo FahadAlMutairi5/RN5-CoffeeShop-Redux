@@ -1,7 +1,12 @@
 import React, { Component } from "react";
-import { Text, View } from "native-base";
+import { Text, View , Button} from "native-base";
+import { connect } from "react-redux";
+import { logout } from "../../store/actions/authActions";
 
-export default class index extends Component {
+class Profile extends Component {
+  componentDidMount(){
+    this.props.navigation.navigate("Coffee")
+  }
   render() {
     return (
       <View>
@@ -10,3 +15,12 @@ export default class index extends Component {
     );
   }
 }
+//logout dis
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(logout()),
+  
+});
+
+export default  connect(
+  mapDispatchToProps
+)(Profile);

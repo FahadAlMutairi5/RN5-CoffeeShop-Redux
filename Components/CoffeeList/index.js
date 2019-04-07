@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 // NativeBase Components
-import { List, Content, Spinner } from "native-base";
+import { List, Content, Spinner , Button, Text} from "native-base";
 
 // Store
 import coffeeshops from "./list";
+import { logout } from "../../store/actions/authActions";
 
 // Component
 import CoffeeItem from "./CoffeeItem";
@@ -30,6 +31,13 @@ class CoffeeList extends Component {
     return (
       <Content>
         <List>{shops}</List>
+        <Button
+            full
+            success
+            onPress={this.props.logout}
+          >
+            <Text>Logout</Text>
+          </Button>
       </Content>
     );
   }
@@ -38,5 +46,8 @@ class CoffeeList extends Component {
 const mapStateToProps = state => ({
   coffeeReducer: state.coffeeReducer
 });
-
-export default connect(mapStateToProps)(CoffeeList);
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(logout()),
+  
+});
+export default connect(mapStateToProps, mapDispatchToProps)(CoffeeList);

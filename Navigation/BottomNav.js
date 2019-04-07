@@ -2,14 +2,14 @@ import { createBottomTabNavigator } from "react-navigation";
 import React from "react";
 import { Icon } from "native-base";
 import AuthStack from "./AuthStack";
-import OrderStack from "./OrderStack";
+import CheckCartUth from "../Components/CheckCartUth";
 import CoffeeStack from "./CoffeeStack";
 
 const BottomNav = createBottomTabNavigator(
   {
     Auth: AuthStack,
     Coffee: CoffeeStack,
-    Order: OrderStack
+    Order: CheckCartUth
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({

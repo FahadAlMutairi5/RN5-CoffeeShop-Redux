@@ -1,6 +1,7 @@
 import axios from "axios";
 import * as actionTypes from "./types";
 
+
 export const getCoffeeShops = () => {
   return async dispatch => {
     dispatch(setCoffeeShopsLoading());

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
+import {login , signup, checkForExpiredToken} from "../../store/actions/authActions";
 // NativeBase Components
 import {
   Text,
@@ -14,8 +16,19 @@ import {
   Content,
   Header
 } from "native-base";
-
+//Test
 class Login extends Component {
+  async componentDidMount(){
+      await this.props.checkForExpiredToken();
+      let {user}  = this.props.authReducer;
+      if (user){
+        this.props.navigation.replace("Profile");
+      }   
+  }
+  state={
+    username:"",
+    password:""
+  }
   render() {
     return (
       <Content>
@@ -35,7 +48,11 @@ class Login extends Component {
                     marginBottom: 10
                   }}
                 >
-                  <Input autoCorrect={false} autoCapitalize="none" />
+                  <Input 
+                    autoCorrect={false}
+                    autoCapitalize="none" 
+                    onChangeText={(username)=>this.setState({username})}
+                  />
                 </Item>
                 <Body>
                   <Label style={{ color: "white" }}>Password</Label>
@@ -46,6 +63,7 @@ class Login extends Component {
                 >
                   <Input
                     autoCorrect={false}
+                    onChangeText={(password)=>this.setState({password})}
                     secureTextEntry
                     autoCapitalize="none"
                   />
@@ -56,14 +74,14 @@ class Login extends Component {
           <Button
             full
             success
-            onPress={() => this.props.navigation.navigate("Profile")}
+            onPress={() => this.props.login(this.state , this.props.navigation)}
           >
             <Text>Login</Text>
           </Button>
           <Button
             full
             warning
-            onPress={() => this.props.navigation.navigate("CoffeeList")}
+            onPress={() => this.props.signup(this.state, this.props.navigation)}
           >
             <Text>Register</Text>
           </Button>
@@ -76,4 +94,13 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  authReducer: state.authReducer
+});
+const mapDispatchToProps = dispatch => ({
+  login: (user, navigate) => dispatch(login(user, navigate)),
+});
+export default  connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

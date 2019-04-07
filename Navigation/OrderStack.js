@@ -2,18 +2,16 @@ import { createStackNavigator, createAppContainer } from "react-navigation";
 
 import Cart from "../Components/CoffeeCart";
 import OrderHistory from "../Components/OrderHistory";
-import List from "../Components/CoffeeList";
-import Detail from "../Components/CoffeeDetail";
-import Login from "../Components/Login";
-import Home from "../Components/HomePage";
+import CheckCartUth from "../Components/CheckCartUth";
 
 const OrderStack = createStackNavigator(
   {
+    CheckCartUth:CheckCartUth,
     CoffeeCart: Cart,
     OrderHistory: OrderHistory
   },
   {
-    initialRouteName: "CoffeeCart",
+    initialRouteName: "CheckCartUth",
     cardStyle: {
       backgroundColor: "rgb(20,90,100)"
     },
